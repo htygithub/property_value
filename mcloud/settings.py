@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'app',
-    'fileupload',   
+    'fileupload',
 )
 
 
@@ -84,7 +84,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.join(os.path.abspath(os.path.dirname(__file__)),'..')
 
 # URL prefix for static files.
 # Static files (CSS, JavaScript, Images)
