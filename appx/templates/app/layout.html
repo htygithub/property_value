@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - 磁雲共振 MxYUN</title>
+    {% load staticfiles %}
+ 
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
+    </script>
+    <!-- End of official Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+
+    <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.9.1.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.9.1.min.css">
+   
+    <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({tex2jax: {inlineMath: [['$$','$$'], ['\\(','\\)']]},SVG: { scale: 150 },  displayAlign: 'left'});
+    </script>
+    <script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+    <style type="text/css">
+
+    @font-face {
+            font-family: 'cwTeXHei';
+            font-style: normal;
+            font-weight: 500;
+            src: url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.eot);
+            src: url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.eot?#iefix) format('embedded-opentype'),
+                 url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff2) format('woff2'),
+                 url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff) format('woff'),
+                 url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.ttf) format('truetype');
+              }
+    </style>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap styles -->
+    <!-- Generic page styles -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+    <!-- blueimp Gallery styles -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/blueimp-gallery.min.css">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.fileupload-ui.css">
+    <!-- CSS adjustments for browsers with JavaScript disabled -->
+    <noscript><link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.fileupload-ui-noscript.css"></noscript>
+
+
+
+
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">磁雲共振 MxYUN</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">		 
+                    <li><p class="navbar-text">0.0.2</p></li>       
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-    haspopup="true" aria-expanded="false">Calculation <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'T1_input' %}">T1 Fit (IR)</a></li>
+                            <li><a href="{% url 'T1LL_input' %}">T1 Fit (Look-Locker)</a></li>
+                            <li><a href="{% url 'T2_input' %}">T2 Fit</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{% url 'perfusion_input' %}">Gamma Fit</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-    haspopup="true" aria-expanded="false">Visualizatoin <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'AHA17_input' %}">AHA 17</a></li>
+                            <li><a href="{% url 'fcmat_input' %}">FC Matrix</a></li>
+                        </ul>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'list_MRAPP' %}">MRAPP</a></li>
+                    {% endif %}
+                </ul>
+                {% include 'app/loginpartial.html' %}
+            </div>
+        </div>
+    </div>
+
+ <div id='thisdiv' class="container body-content">  
+{% block content %}{% endblock %}
+
+        <hr/>
+        <footer>
+            <p>&copy; {{ year }} - 磁雲共振 MxYUN</p>
+        </footer>
+    </div>
+
+
+    <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'app/scripts/respond.js' %}"></script>
+            <script src="{% static 'js/highcharts.js' %}"></script>
+        <script src="{% static 'js/modules/exporting.js' %}"></script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-7819893-5', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+{% block scripts %}{% endblock %}
+
+</body>
+</html>
