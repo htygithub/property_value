@@ -1,0 +1,6 @@
+$ heroku login
+$ git add .
+$ git commit -am "make it better"
+$ git push heroku master
+$ heroku create --buildpack https://github.com/kennethreitz/conda-buildpack.git
+$ git push heroku master

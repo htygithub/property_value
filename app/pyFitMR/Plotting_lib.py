@@ -1,6 +1,9 @@
 def dynamic_svg(x,y,smoothx, smoothy,xAxis_label,yAxis_label,chart_title):
+    import matplotlib as mb
+    mb.use('Agg')
     import StringIO
     import numpy, matplotlib.pyplot as plt
+
     #import seaborn as sns
     try:
         #sns.set_style('ticks')
@@ -13,44 +16,83 @@ def dynamic_svg(x,y,smoothx, smoothy,xAxis_label,yAxis_label,chart_title):
         #pylab.rcParams.update(params)
         plt.scatter(x,y, s=65, marker='+',c= 'k',label='Original')
         plt.plot(smoothx, smoothy,c= 'k',label='Fitted data')
-        plt.legend(loc='lower right')
+        plt.legend(loc=0)
         plt.xlabel(xAxis_label)
         plt.ylabel(yAxis_label)
-        plt.xlim(xmin =-10,xmax= max(x)+100)
-        plt.ylim(ymin =smoothy.min()-10)
+        delta_x=max(x)-min(x)
+        delta_y=max(y)-min(y)
+        plt.xlim(xmin =-0.05*delta_x,xmax= max(x)+0.05*delta_x)
+        plt.ylim(ymin =smoothy.min()-0.05*delta_y)
         fig = plt.gcf()
         fig.set_size_inches(10,6)
         #plt.gca().axhline(0, color='black', lw=2)
         plt.gca().grid(True)
-      
+
         #plt.gca().set_axis_bgcolor('white')
         rv = StringIO.StringIO()
         plt.savefig(rv, format="svg")
         return rv.getvalue()
     finally:
+        pass #plt.clf()
+
+
+def dynamic_svg2(x,y,smoothx, smoothy,xAxis_label,yAxis_label,chart_title):
+    import matplotlib as mb
+    mb.use('Agg')
+    import StringIO
+    import numpy, matplotlib.pyplot as plt
+
+    #import seaborn as sns
+    try:
+        #sns.set_style('ticks')
+        #plt.style.use('ggplot')
+        #plt.title('T1 fitting for Look-Locker Experiment')
+        #plt.scatter(x,y, s=65, color=sns.color_palette()[0],marker='o',alpha=0.8)
+        #plt.plot(smoothx, fitted_y, color=sns.color_palette()[1])
+        plt.figure(1)
         plt.clf()
+        #pylab.rcParams.update(params)
+        plt.scatter(x,y, s=65, marker='+',c= 'k',label='Original')
+        plt.plot(smoothx, smoothy,c= 'k',label='Fitted data')
+        plt.fill(smoothx,smoothy, 'y' )
+        plt.legend(loc=0)
+        plt.xlabel(xAxis_label)
+        plt.ylabel(yAxis_label)
+        delta_x=max(x)-min(x)
+        delta_y=max(y)-min(y)
+        plt.xlim(xmin =-0.05*delta_x,xmax= max(x)+0.05*delta_x)
+        plt.ylim(ymin =smoothy.min()-0.05*delta_y)
 
+        fig = plt.gcf()
+        fig.set_size_inches(10,6)
+        #plt.gca().axhline(0, color='black', lw=2)
+        plt.gca().grid(True)
 
-
+        #plt.gca().set_axis_bgcolor('white')
+        rv = StringIO.StringIO()
+        plt.savefig(rv, format="svg")
+        return rv.getvalue()
+    finally:
+        pass #plt.clf()
 
 
 def highchart(x,y,smoothx, fitted_y,xAxis_label,yAxis_label,chart_title):
-    original_data = ''        			
+    original_data = ''
     for index in range(len(x)):
             if (index < (len(x) - 1)):
-                formattedline = '				[%10.3f , %10.3f ],' % (x[index], y[index]) 
+                formattedline = '				[%10.3f , %10.3f ],' % (x[index], y[index])
             else:
-                formattedline = '				[%10.3f , %10.3f ]' % (x[index], y[index])                 
+                formattedline = '				[%10.3f , %10.3f ]' % (x[index], y[index])
             original_data +=formattedline
 
-     
-    fitted_data = ''         
+
+    fitted_data = ''
     for index in range(len(fitted_y)):
             if (index < (len(fitted_y) - 1)):
-                formattedline = '				[%10.3f , %10.3f ],' % (smoothx[index], fitted_y[index]) 
+                formattedline = '				[%10.3f , %10.3f ],' % (smoothx[index], fitted_y[index])
             else:
-                formattedline = '				[%10.3f , %10.3f ]' % (smoothx[index], fitted_y[index]) 
-            fitted_data += formattedline		
+                formattedline = '				[%10.3f , %10.3f ]' % (smoothx[index], fitted_y[index])
+            fitted_data += formattedline
 
     JS="""
                 <script type='text/javascript'>
@@ -68,7 +110,7 @@ def highchart(x,y,smoothx, fitted_y,xAxis_label,yAxis_label,chart_title):
                         title: {
                             text: '""" +  chart_title + """'
                         },
-           
+
                         xAxis: {
                             title: {
                                 enabled: true,
@@ -120,9 +162,9 @@ def highchart(x,y,smoothx, fitted_y,xAxis_label,yAxis_label,chart_title):
                         series: [{
                             name: 'Original',
                             color: 'rgba(223, 83, 83, .8)',
-        			
+
                             data: [	""" +  original_data + """	]
-        
+
                         }, {
                             name: 'Fitted Data',
         			        lineWidth: 3,
@@ -134,8 +176,8 @@ def highchart(x,y,smoothx, fitted_y,xAxis_label,yAxis_label,chart_title):
                         }]
                     });
                 });
-            
-        
+
+
         </script>
 
 

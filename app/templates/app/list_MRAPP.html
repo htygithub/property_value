@@ -1,0 +1,81 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}</h2>
+
+        <div class="container">
+            <div class="center_padding1">
+                <h2>List of MRAPP</h2>
+
+                <table class="table table-hover">
+                    <tr>
+                        <th>APP NAME</th>
+                        <th>APP TYPE</th>
+                        <th>Description</th>
+                        <th>Operating System</th>
+                        
+
+                    </tr>
+                    {% for r in MRAPPs %}
+                      {% if r.enable %}
+                    <tr>
+                        <td> <a href="/MRAPP/{{r.id}}"> {{ r.name }} </a></td>
+                        <td> {{ r.apptype }} </td>
+                        <td> {{ r.shorttext }} </td>
+                        <td> {{ r.OS }} </td>
+                        
+                        
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+
+
+            </div>
+
+
+            <div class="center_padding1">
+                <h2>List of Current Jobs </h2>
+
+                <table class="table table-hover">
+                    <tr>
+                        <th>User Name</th>
+                        <th>APP NAME</th>
+                        <th>File Name</th>
+                        <th>Upload Time</th>
+                        <th>Status</th>
+                        
+
+                    </tr>
+                    {% for r in file_logs %}
+                 
+                    <tr>
+                        
+                        <td> {{ r.user.username }} </td>
+                        <td> {{ r.MRAPP.name }} </td>
+                        <td> {{ r.fname }} </td>
+                        <td> {{ r.inp_time }} </td>
+                        <td> {{ r.status }} </td>
+                        
+                        
+                    </tr>
+                  
+                    {% endfor %}
+                </table>
+
+
+            </div>
+        </div>
+
+Provided by http://mri.ee.ntust.edu.tw - MxYun
+{% endblock %}
+
+
+{% block scripts %}
+
+    {% load staticfiles %}
+<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+
+{% endblock %}
+

@@ -1,1 +1,1 @@
-web: gunicorn Mcloud4.wsgi:application --log-file -
+web: gunicorn mcloud.wsgi --log-file -

@@ -3,6 +3,10 @@
     padding-bottom: 20px;
 }
 
+
+.navbar a {
+    font-size: 17px; 
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -13,7 +17,7 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 50%;
 }
 
 /* styles for validation helpers */
