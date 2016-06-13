@@ -4,6 +4,6 @@ dj-static==0.0.6
 gunicorn
 static3==0.5.1
 wsgiref
-bokeh
+#bokeh
 scikit-learn
 matplotlib
