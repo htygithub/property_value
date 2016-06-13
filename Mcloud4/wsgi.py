@@ -1,6 +1,6 @@
 """
 WSGI config for Mcloud4 project.
- 
+
 This module contains the WSGI application used by Django's development server
 and any production WSGI deployments. It should expose a module-level variable
 named ``application``. Django's ``runserver`` and ``runfcgi`` commands discover
@@ -11,9 +11,11 @@ might make sense to replace the whole Django WSGI application with a custom one
 that later delegates to the Django one. For example, you could introduce WSGI
 middleware here, or combine a Django application with an application of another
 framework.
-   
+
 """
 import os
+from dj_static import Cling
+
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Mcloud4.settings")
 
@@ -21,8 +23,8 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Mcloud4.settings")
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
 from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
-
+#application = get_wsgi_application()
+application = Cling(get_wsgi_application())
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
