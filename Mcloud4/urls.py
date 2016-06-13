@@ -36,10 +36,15 @@ urlpatterns = patterns('',
         name='logout'),
     url(r'^T1LL/$', 'app.views.T1LL_input', name='T1LL_input'),
     url(r'^T1LL_result/$', 'app.views.T1LL_result', name='T1LL_result'),
-  
+
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 )
+
+from Mcloud4 import settings
+urlpatterns += patterns('',
+        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    )
