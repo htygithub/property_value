@@ -5,4 +5,4 @@ gunicorn
 static3==0.5.1
 wsgiref
 bokeh
-matplotlib
+scikit-learn
