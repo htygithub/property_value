@@ -1,7 +1,3 @@
-"""
-Definition of urls for Mcloud4.
-"""
-
 from datetime import datetime
 from django.conf.urls import patterns, url
 from app.forms import BootstrapAuthenticationForm
